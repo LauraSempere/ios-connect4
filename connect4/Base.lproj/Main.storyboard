@@ -1,14 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="GameViewController" customModule="connect4" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +22,350 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" tag="-1" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="n46-nC-MKg">
+                                <rect key="frame" x="27.5" y="227" width="320" height="280"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Sl-V3-RJG">
+                                        <rect key="frame" x="0.0" y="0.0" width="45.5" height="280"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="GFb-pS-K4d">
+                                                <rect key="frame" x="0.0" y="-0.5" width="45.5" height="280.5"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="iRA-DN-CRG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="Kf9-qM-JTg">
+                                                        <rect key="frame" x="0.0" y="47" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="DeZ-M1-EbP">
+                                                        <rect key="frame" x="0.0" y="93.5" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="6OZ-xt-y4h">
+                                                        <rect key="frame" x="0.0" y="140.5" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="vTA-Ms-Mov">
+                                                        <rect key="frame" x="0.0" y="187" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="KIc-dv-TOn">
+                                                        <rect key="frame" x="0.0" y="234" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xI-2Y-JVT">
+                                                <rect key="frame" x="-0.5" y="0.0" width="46" height="280"/>
+                                                <connections>
+                                                    <action selector="columnButtonDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OBB-4T-ygg"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="GFb-pS-K4d" secondAttribute="trailing" id="8QU-Lf-OeH"/>
+                                            <constraint firstItem="1xI-2Y-JVT" firstAttribute="leading" secondItem="9Sl-V3-RJG" secondAttribute="leading" id="M88-qG-3Q9"/>
+                                            <constraint firstAttribute="bottom" secondItem="GFb-pS-K4d" secondAttribute="bottom" id="fSk-Hh-ldB"/>
+                                            <constraint firstItem="GFb-pS-K4d" firstAttribute="top" secondItem="9Sl-V3-RJG" secondAttribute="top" id="iTT-0X-BCz"/>
+                                            <constraint firstAttribute="trailing" secondItem="1xI-2Y-JVT" secondAttribute="trailing" id="lLS-Vk-8Ya"/>
+                                            <constraint firstItem="1xI-2Y-JVT" firstAttribute="top" secondItem="9Sl-V3-RJG" secondAttribute="top" id="wHZ-p4-qsM"/>
+                                            <constraint firstAttribute="bottom" secondItem="1xI-2Y-JVT" secondAttribute="bottom" id="zRJ-O9-aUC"/>
+                                            <constraint firstItem="GFb-pS-K4d" firstAttribute="leading" secondItem="9Sl-V3-RJG" secondAttribute="leading" id="zVi-Tl-CDW"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mP4-CM-EZG">
+                                        <rect key="frame" x="45.5" y="0.0" width="46" height="280"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ro7-JD-kCc">
+                                                <rect key="frame" x="0.0" y="-0.5" width="46" height="280.5"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="t91-Wa-8R9">
+                                                        <rect key="frame" x="0.0" y="0.0" width="46" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="MW5-iE-oyb">
+                                                        <rect key="frame" x="0.0" y="47" width="46" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="Qx3-Tc-e2r">
+                                                        <rect key="frame" x="0.0" y="93.5" width="46" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="H1t-tp-h9c">
+                                                        <rect key="frame" x="0.0" y="140.5" width="46" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="hP6-rU-CCG">
+                                                        <rect key="frame" x="0.0" y="187" width="46" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="J0t-F5-75f">
+                                                        <rect key="frame" x="0.0" y="234" width="46" height="46.5"/>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZYg-ex-W4K">
+                                                <rect key="frame" x="-0.5" y="0.0" width="46.5" height="280"/>
+                                                <connections>
+                                                    <action selector="columnButtonDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AFS-kY-yFB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="ro7-JD-kCc" secondAttribute="trailing" id="4A4-7Y-g3I"/>
+                                            <constraint firstAttribute="bottom" secondItem="ro7-JD-kCc" secondAttribute="bottom" id="Cu0-Q7-ySy"/>
+                                            <constraint firstItem="ro7-JD-kCc" firstAttribute="top" secondItem="mP4-CM-EZG" secondAttribute="top" id="HMb-Sp-cM9"/>
+                                            <constraint firstItem="ZYg-ex-W4K" firstAttribute="top" secondItem="mP4-CM-EZG" secondAttribute="top" id="O78-ld-3J9"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZYg-ex-W4K" secondAttribute="trailing" id="S9Z-4t-naa"/>
+                                            <constraint firstItem="ZYg-ex-W4K" firstAttribute="leading" secondItem="mP4-CM-EZG" secondAttribute="leading" id="WF2-jI-GCU"/>
+                                            <constraint firstItem="ro7-JD-kCc" firstAttribute="leading" secondItem="mP4-CM-EZG" secondAttribute="leading" id="dth-FI-YNk"/>
+                                            <constraint firstAttribute="bottom" secondItem="ZYg-ex-W4K" secondAttribute="bottom" id="vJO-t9-dc3"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZjR-Dk-X3s">
+                                        <rect key="frame" x="91.5" y="0.0" width="45.5" height="280"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="DJO-2L-F2M">
+                                                <rect key="frame" x="0.0" y="-0.5" width="45.5" height="280.5"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="nRV-I8-U2H">
+                                                        <rect key="frame" x="0.0" y="0.0" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="rOq-ke-zzR">
+                                                        <rect key="frame" x="0.0" y="47" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="ZJq-6j-6jk">
+                                                        <rect key="frame" x="0.0" y="93.5" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="K6E-La-Md9">
+                                                        <rect key="frame" x="0.0" y="140.5" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="K1R-E8-ZHe">
+                                                        <rect key="frame" x="0.0" y="187" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="MpW-gn-4vo">
+                                                        <rect key="frame" x="0.0" y="234" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FoK-nl-9xf">
+                                                <rect key="frame" x="-0.5" y="0.0" width="46" height="280"/>
+                                                <connections>
+                                                    <action selector="columnButtonDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="62D-DD-kaS"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="DJO-2L-F2M" firstAttribute="leading" secondItem="ZjR-Dk-X3s" secondAttribute="leading" id="1zh-jv-zfj"/>
+                                            <constraint firstAttribute="trailing" secondItem="FoK-nl-9xf" secondAttribute="trailing" id="P1G-Bd-eQC"/>
+                                            <constraint firstAttribute="bottom" secondItem="DJO-2L-F2M" secondAttribute="bottom" id="T1l-Zb-bkU"/>
+                                            <constraint firstAttribute="bottom" secondItem="FoK-nl-9xf" secondAttribute="bottom" id="YlI-QU-FJa"/>
+                                            <constraint firstAttribute="trailing" secondItem="DJO-2L-F2M" secondAttribute="trailing" id="ZXe-bV-2nP"/>
+                                            <constraint firstItem="FoK-nl-9xf" firstAttribute="top" secondItem="ZjR-Dk-X3s" secondAttribute="top" id="gEB-Jp-S6G"/>
+                                            <constraint firstItem="DJO-2L-F2M" firstAttribute="top" secondItem="ZjR-Dk-X3s" secondAttribute="top" id="lty-sn-djd"/>
+                                            <constraint firstItem="FoK-nl-9xf" firstAttribute="leading" secondItem="ZjR-Dk-X3s" secondAttribute="leading" id="pCe-eL-Rjg"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bK9-Dq-Olk">
+                                        <rect key="frame" x="137" y="0.0" width="46" height="280"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MOP-sb-FfH">
+                                                <rect key="frame" x="0.0" y="-0.5" width="46" height="280.5"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="pS0-xb-ek4">
+                                                        <rect key="frame" x="0.0" y="0.0" width="46" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="EEC-wr-MT5">
+                                                        <rect key="frame" x="0.0" y="47" width="46" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="epN-vo-tNs">
+                                                        <rect key="frame" x="0.0" y="93.5" width="46" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="d37-ir-AUF">
+                                                        <rect key="frame" x="0.0" y="140.5" width="46" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="C20-8q-Zf8">
+                                                        <rect key="frame" x="0.0" y="187" width="46" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="6CA-xN-Du0">
+                                                        <rect key="frame" x="0.0" y="234" width="46" height="46.5"/>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPv-Ww-GL5">
+                                                <rect key="frame" x="-0.5" y="0.0" width="46.5" height="280"/>
+                                                <connections>
+                                                    <action selector="columnButtonDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aaU-r2-yIj"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="hPv-Ww-GL5" firstAttribute="leading" secondItem="bK9-Dq-Olk" secondAttribute="leading" id="6fd-gO-MWf"/>
+                                            <constraint firstItem="MOP-sb-FfH" firstAttribute="top" secondItem="bK9-Dq-Olk" secondAttribute="top" id="A8f-cr-RbP"/>
+                                            <constraint firstAttribute="trailing" secondItem="MOP-sb-FfH" secondAttribute="trailing" id="I3n-bz-AIo"/>
+                                            <constraint firstItem="MOP-sb-FfH" firstAttribute="leading" secondItem="bK9-Dq-Olk" secondAttribute="leading" id="Oor-8S-v5b"/>
+                                            <constraint firstAttribute="bottom" secondItem="MOP-sb-FfH" secondAttribute="bottom" id="ShU-ha-qqV"/>
+                                            <constraint firstAttribute="trailing" secondItem="hPv-Ww-GL5" secondAttribute="trailing" id="g9Q-Tq-YaB"/>
+                                            <constraint firstItem="hPv-Ww-GL5" firstAttribute="top" secondItem="bK9-Dq-Olk" secondAttribute="top" id="hWf-Mw-0BH"/>
+                                            <constraint firstAttribute="bottom" secondItem="hPv-Ww-GL5" secondAttribute="bottom" id="lod-bo-ZBO"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BfC-wh-GBB">
+                                        <rect key="frame" x="183" y="0.0" width="45.5" height="280"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TgC-1k-jIl">
+                                                <rect key="frame" x="0.0" y="-0.5" width="45.5" height="280.5"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="acJ-dY-zjc">
+                                                        <rect key="frame" x="0.0" y="0.0" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="DX9-XD-8kB">
+                                                        <rect key="frame" x="0.0" y="47" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="TFs-dQ-GjS">
+                                                        <rect key="frame" x="0.0" y="93.5" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="VhA-zx-zhO">
+                                                        <rect key="frame" x="0.0" y="140.5" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="wkF-la-Bl1">
+                                                        <rect key="frame" x="0.0" y="187" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="82m-XM-09x">
+                                                        <rect key="frame" x="0.0" y="234" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dQj-Q6-Wgt">
+                                                <rect key="frame" x="-0.5" y="0.0" width="46" height="280"/>
+                                                <connections>
+                                                    <action selector="columnButtonDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ohl-CI-hHu"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="TgC-1k-jIl" firstAttribute="top" secondItem="BfC-wh-GBB" secondAttribute="top" id="ItF-iB-NQ4"/>
+                                            <constraint firstAttribute="bottom" secondItem="dQj-Q6-Wgt" secondAttribute="bottom" id="JZj-ce-E8P"/>
+                                            <constraint firstAttribute="trailing" secondItem="TgC-1k-jIl" secondAttribute="trailing" id="UWZ-qj-xSc"/>
+                                            <constraint firstItem="dQj-Q6-Wgt" firstAttribute="top" secondItem="BfC-wh-GBB" secondAttribute="top" id="ZHs-rI-R72"/>
+                                            <constraint firstItem="TgC-1k-jIl" firstAttribute="leading" secondItem="BfC-wh-GBB" secondAttribute="leading" id="cSn-cF-Shj"/>
+                                            <constraint firstAttribute="trailing" secondItem="dQj-Q6-Wgt" secondAttribute="trailing" id="jWm-ju-53s"/>
+                                            <constraint firstItem="dQj-Q6-Wgt" firstAttribute="leading" secondItem="BfC-wh-GBB" secondAttribute="leading" id="q6t-yk-eF2"/>
+                                            <constraint firstAttribute="bottom" secondItem="TgC-1k-jIl" secondAttribute="bottom" id="rnS-uX-lp0"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oZe-Da-8wV">
+                                        <rect key="frame" x="228.5" y="0.0" width="46" height="280"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="FXX-6P-hcb">
+                                                <rect key="frame" x="0.0" y="-0.5" width="46" height="280.5"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="KaC-TH-w4A">
+                                                        <rect key="frame" x="0.0" y="0.0" width="46" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="yDX-0a-5yN">
+                                                        <rect key="frame" x="0.0" y="47" width="46" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="Lck-nk-4S2">
+                                                        <rect key="frame" x="0.0" y="93.5" width="46" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="phE-7G-Imz">
+                                                        <rect key="frame" x="0.0" y="140.5" width="46" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="fr0-Jh-kUP">
+                                                        <rect key="frame" x="0.0" y="187" width="46" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="dSy-nD-MaU">
+                                                        <rect key="frame" x="0.0" y="234" width="46" height="46.5"/>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lF9-gB-NnX">
+                                                <rect key="frame" x="-0.5" y="0.0" width="46.5" height="280"/>
+                                                <connections>
+                                                    <action selector="columnButtonDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SOp-ok-jkl"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="lF9-gB-NnX" secondAttribute="bottom" id="88X-Uk-NRP"/>
+                                            <constraint firstItem="FXX-6P-hcb" firstAttribute="leading" secondItem="oZe-Da-8wV" secondAttribute="leading" id="KrY-Mb-r0r"/>
+                                            <constraint firstAttribute="bottom" secondItem="FXX-6P-hcb" secondAttribute="bottom" id="cnj-gH-bs4"/>
+                                            <constraint firstAttribute="trailing" secondItem="lF9-gB-NnX" secondAttribute="trailing" id="dLk-Qv-0b5"/>
+                                            <constraint firstItem="FXX-6P-hcb" firstAttribute="top" secondItem="oZe-Da-8wV" secondAttribute="top" id="gw9-uh-QPW"/>
+                                            <constraint firstItem="lF9-gB-NnX" firstAttribute="leading" secondItem="oZe-Da-8wV" secondAttribute="leading" id="m0v-Kh-iL2"/>
+                                            <constraint firstItem="lF9-gB-NnX" firstAttribute="top" secondItem="oZe-Da-8wV" secondAttribute="top" id="pej-sT-myl"/>
+                                            <constraint firstAttribute="trailing" secondItem="FXX-6P-hcb" secondAttribute="trailing" id="u2i-C9-QpI"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cly-6L-b2F">
+                                        <rect key="frame" x="274.5" y="0.0" width="45.5" height="280"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="yYE-qe-4kD">
+                                                <rect key="frame" x="0.0" y="-0.5" width="45.5" height="280.5"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="ZMs-vq-DQE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="oK7-Xs-bxF">
+                                                        <rect key="frame" x="0.0" y="47" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="QeC-SG-qIZ">
+                                                        <rect key="frame" x="0.0" y="93.5" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="k4K-iZ-Obi">
+                                                        <rect key="frame" x="0.0" y="140.5" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="Cfg-TL-B5j">
+                                                        <rect key="frame" x="0.0" y="187" width="45.5" height="47"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gridTile" translatesAutoresizingMaskIntoConstraints="NO" id="bgr-sM-qdf">
+                                                        <rect key="frame" x="0.0" y="234" width="45.5" height="46.5"/>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abq-04-u6f">
+                                                <rect key="frame" x="-0.5" y="0.0" width="46" height="280"/>
+                                                <connections>
+                                                    <action selector="columnButtonDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WlN-NO-Xej"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="yYE-qe-4kD" firstAttribute="leading" secondItem="cly-6L-b2F" secondAttribute="leading" id="392-mt-ZVb"/>
+                                            <constraint firstAttribute="bottom" secondItem="yYE-qe-4kD" secondAttribute="bottom" id="6FK-G9-sst"/>
+                                            <constraint firstItem="yYE-qe-4kD" firstAttribute="top" secondItem="cly-6L-b2F" secondAttribute="top" id="HOw-Zs-Aen"/>
+                                            <constraint firstAttribute="trailing" secondItem="abq-04-u6f" secondAttribute="trailing" id="Jjj-qb-h8g"/>
+                                            <constraint firstAttribute="trailing" secondItem="yYE-qe-4kD" secondAttribute="trailing" id="N4I-hc-mcJ"/>
+                                            <constraint firstItem="abq-04-u6f" firstAttribute="top" secondItem="cly-6L-b2F" secondAttribute="top" id="XsY-wf-rBE"/>
+                                            <constraint firstAttribute="bottom" secondItem="abq-04-u6f" secondAttribute="bottom" id="acN-o3-xZC"/>
+                                            <constraint firstItem="abq-04-u6f" firstAttribute="leading" secondItem="cly-6L-b2F" secondAttribute="leading" id="mwM-nC-WSH"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="Bdn-LI-VEA"/>
+                                    <constraint firstAttribute="width" secondItem="n46-nC-MKg" secondAttribute="height" multiplier="8:7" id="Ii3-gd-hI9"/>
+                                    <constraint firstAttribute="height" constant="280" id="Maj-Ew-nU8"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="n46-nC-MKg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.1" id="2De-VH-r83"/>
+                            <constraint firstItem="n46-nC-MKg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JuH-r7-AUK"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="gameBoard" destination="n46-nC-MKg" id="VA1-ZG-raU"/>
+                        <outletCollection property="columnButtons" destination="1xI-2Y-JVT" collectionClass="NSMutableArray" id="NbU-1S-8yk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="140" y="137.18140929535232"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="gridTile" width="400" height="395"/>
+    </resources>
 </document>
