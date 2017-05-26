@@ -362,6 +362,13 @@
                         <outletCollection property="columnViews" destination="BfC-wh-GBB" collectionClass="NSMutableArray" id="tXK-Bo-S8g"/>
                         <outletCollection property="columnViews" destination="oZe-Da-8wV" collectionClass="NSMutableArray" id="cvx-Tr-hHo"/>
                         <outletCollection property="columnViews" destination="cly-6L-b2F" collectionClass="NSMutableArray" id="3IO-yh-dQn"/>
+                        <outletCollection property="columnButtons" destination="1xI-2Y-JVT" collectionClass="NSMutableArray" id="8dY-Re-6ag"/>
+                        <outletCollection property="columnButtons" destination="ZYg-ex-W4K" collectionClass="NSMutableArray" id="kuW-SF-Iav"/>
+                        <outletCollection property="columnButtons" destination="FoK-nl-9xf" collectionClass="NSMutableArray" id="o6v-Jp-7DO"/>
+                        <outletCollection property="columnButtons" destination="hPv-Ww-GL5" collectionClass="NSMutableArray" id="AAb-8U-OaE"/>
+                        <outletCollection property="columnButtons" destination="dQj-Q6-Wgt" collectionClass="NSMutableArray" id="K7G-5t-dtD"/>
+                        <outletCollection property="columnButtons" destination="lF9-gB-NnX" collectionClass="NSMutableArray" id="Iea-Cq-s5r"/>
+                        <outletCollection property="columnButtons" destination="abq-04-u6f" collectionClass="NSMutableArray" id="Ftr-Iu-lCW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

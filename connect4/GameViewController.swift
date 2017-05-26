@@ -12,11 +12,18 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var gameBoard: UIStackView!
     @IBOutlet var columnViews: [UIView]!
+    @IBOutlet var columnButtons: [UIButton]!
     
     var board = Board()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    private func toggleColumnInteration(active: Bool) {
+        for button in columnButtons {
+            button.isUserInteractionEnabled = active
+        }
     }
     
     private func imageFor(chipColor: ChipColor) -> UIImage? {
@@ -27,15 +34,40 @@ class GameViewController: UIViewController {
         }
     }
     
-
+    
+    private func updateGame() {
+        
+        if board.activePlayer == board.player {
+            toggleColumnInteration(active: true)
+            
+        } else {
+            toggleColumnInteration(active: false)
+            
+            let move = board.activePlayer.randomMove(for: board)
+            board.add(chip: board.activePlayer.chip, column: move.column)
+            
+            // AI player move shows after 2 seconds on the screen
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [unowned self] in
+                self.displayChip(self.imageFor(chipColor: self.board.activePlayer.chip)!, at: move.column, row: move.row)
+                self.board.swapTurn()
+                // Recursion to achieve the game loop
+                self.updateGame()
+            })
+            
+            
+        }
+    }
+    
     @IBAction func columnButtonDidTap(_ sender: UIButton) {
-        print("Button in Column Tapped! \(sender.tag)")
+        
         if let row =  board.nextEmptyRow(at: sender.tag) {
             board.add(chip: board.activePlayer.chip, column: sender.tag)
             displayChip(imageFor(chipColor: board.activePlayer.chip)!, at: sender.tag, row: row)
             
             board.swapTurn()
+            updateGame()
         }
+        
     }
     
     func displayChip(_ chipImage: UIImage, at column:Int, row: Int) {
@@ -49,7 +81,7 @@ class GameViewController: UIViewController {
         chip.image = chipImage
         chip.frame = chipFrame
         chip.contentMode = .scaleAspectFit
-
+        
         let x = columnView.frame.midX + gameBoard.frame.minX
         var y = columnView.frame.maxY - chipSize / 2 + gameBoard.frame.minY
         y -= chipSize * CGFloat(row)
@@ -63,10 +95,10 @@ class GameViewController: UIViewController {
         
         // Chip Animation in
         UIView.animate(withDuration: 0.75, delay: 0, options: .curveEaseIn, animations: {
-          chip.transform = CGAffineTransform.identity
+            chip.transform = CGAffineTransform.identity
         })
         
     }
-
-
+    
+    
 }

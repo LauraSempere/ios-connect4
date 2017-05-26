@@ -15,4 +15,13 @@ class Player: NSObject {
     init(chipColor:ChipColor) {
        self.chip = chipColor
     }
+    
+    func randomMove(for board: Board) -> Move {
+        let column = Int(arc4random_uniform(7))
+        if let row = board.nextEmptyRow(at: column) {
+          return Move(column: column, row: row)
+        } else {
+            return randomMove(for: board)
+        }
+    }
 }
