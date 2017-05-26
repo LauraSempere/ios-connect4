@@ -31,8 +31,8 @@ class GameViewController: UIViewController {
     @IBAction func columnButtonDidTap(_ sender: UIButton) {
         print("Button in Column Tapped! \(sender.tag)")
         if let row =  board.nextEmptyRow(at: sender.tag) {
-            board.add(chip: board.activeChip, column: sender.tag)
-            displayChip(imageFor(chipColor: board.activeChip)!, at: sender.tag, row: row)
+            board.add(chip: board.activePlayer.chip, column: sender.tag)
+            displayChip(imageFor(chipColor: board.activePlayer.chip)!, at: sender.tag, row: row)
             
             board.swapTurn()
         }

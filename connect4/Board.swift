@@ -21,21 +21,26 @@ class Board: NSObject {
     static var height = 6
     
     var spots = [ChipColor]()
-    var activeChip:ChipColor = .red
+    
+    var activePlayer:Player
+    let player:Player = Player(chipColor: .red)
+    let ai:Player = Player(chipColor: .yellow)
     
     override init() {
         // Initialize the Board with empty spaces
         for _ in 0 ..< Board.width * Board.height {
             self.spots.append(.none)
         }
+        activePlayer = player
         super.init()
     }
     
     func swapTurn() {
-        if activeChip == .red {
-            activeChip = .yellow
+        
+        if activePlayer == player {
+            activePlayer = ai
         } else {
-            activeChip = .red
+            activePlayer = player
         }
     }
     
