@@ -117,7 +117,6 @@ class AI: NSObject {
             }
         }
         
-        
         return nil
     }
     

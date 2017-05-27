@@ -139,8 +139,10 @@ extension GameViewController {
     }
     
     func displayWinnerAlert(winner: Player) {
+        let title = winner === board.player ? "Congratulations!" : "You lose!"
+        let message = winner === board.player ? "You won the game" : "Keep it up and try again"
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            let alert = UIAlertController(title: "Game Over", message: "The player \(winner.chip) has won!", preferredStyle: .alert)
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let action = UIAlertAction(title: "Play Again", style: .default) { _ in
                 self.newGame()
             }
