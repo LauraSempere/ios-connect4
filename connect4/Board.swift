@@ -20,19 +20,21 @@ class Board: NSObject {
     static var width = 7
     static var height = 6
     
-    var spots = [ChipColor]()
+    // Board spots are initialized with 'none' color, meaning empty spaces
+    var spots:[[ChipColor]] = Array(repeating: Array(repeating: .none, count: width), count: height)
     
     var activePlayer:Player
     let player:Player = Player(chipColor: .red)
     let ai:Player = Player(chipColor: .yellow)
     
     override init() {
-        // Initialize the Board with empty spaces
-        for _ in 0 ..< Board.width * Board.height {
-            self.spots.append(.none)
-        }
         activePlayer = player
         super.init()
+    }
+    
+    func reset() {
+        spots = Array(repeating: Array(repeating: .none, count: Board.width), count: Board.height)
+        activePlayer = player
     }
     
     func swapTurn() {
@@ -46,7 +48,7 @@ class Board: NSObject {
     
     func nextEmptyRow(at column: Int) -> Int? {
         for row in 0 ..< Board.height {
-            let currChip = spots[row + column * Board.height]
+            let currChip = spots[row][column]
             if currChip == .none {
                 return row
             }
@@ -56,7 +58,81 @@ class Board: NSObject {
     
     func add(chip: ChipColor, column:Int) {
         if let row = nextEmptyRow(at: column) {
-            spots[row + column * Board.height] = chip
+            spots[row][column] = chip
         }
     }
+    
+    
+    private func horizontalConnection(for chip:ChipColor, row: Int, col: Int) ->  Bool {
+        if col + 3 >= Board.width { return false }
+        
+        if spots[row][col] != chip { return false }
+        if spots[row][col + 1] != chip { return false }
+        if spots[row][col + 2] != chip { return false }
+        if spots[row][col + 3] != chip { return false }
+        
+        return true
+    }
+    
+    private func verticalConnection(for chip:ChipColor, row: Int, col: Int) -> Bool {
+        if row + 3 >= Board.height { return false }
+        
+        if spots[row][col] != chip { return false }
+        if spots[row + 1][col] != chip { return false }
+        if spots[row + 2][col] != chip { return false }
+        if spots[row + 3][col] != chip { return false }
+        
+        return true
+    }
+    
+    private func diagonalPositiveConnection(for chip:ChipColor, row: Int, col: Int) -> Bool {
+        if row + 3 >= Board.height { return false }
+        if col + 3 >= Board.width { return false }
+        
+        if spots[row][col] != chip { return false }
+        if spots[row + 1][col + 1] != chip { return false }
+        if spots[row + 2][col + 2] != chip { return false }
+        if spots[row + 3][col + 3] != chip { return false }
+        
+        return true
+    }
+    
+    private func diagonalNegativeConnection(for chip:ChipColor, row: Int, col: Int) -> Bool {
+        if row - 3 < 0 { return false }
+        if col + 3 >= Board.width { return false }
+        
+        if spots[row][col] != chip { return false }
+        if spots[row - 1][col + 1] != chip { return false }
+        if spots[row - 2][col + 2] != chip { return false }
+        if spots[row - 3][col + 3] != chip { return false }
+        
+        
+        return true
+    }
+    
+    func isWinnerMove(chip:ChipColor) -> Bool {
+        
+        for row in 0 ..< Board.height {
+            for column in 0 ..< Board.width {
+                if horizontalConnection(for: chip, row: row, col: column) {
+                    return true
+                }
+                if verticalConnection(for: chip, row: row, col: column) {
+                    return true
+                }
+                if diagonalPositiveConnection(for: chip, row: row, col: column) {
+                    return true
+                }
+                if diagonalNegativeConnection(for: chip, row: row, col: column) {
+                    return true
+                }
+            }
+        }
+        
+        return false
+    }
+    
 }
+
+
+

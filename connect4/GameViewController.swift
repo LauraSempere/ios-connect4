@@ -20,55 +20,66 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    private func toggleColumnInteration(active: Bool) {
-        for button in columnButtons {
-            button.isUserInteractionEnabled = active
+    
+    // MARK: Game lifecycle functions
+    
+    private func makeAIMove(move: Move) {
+        board.add(chip: board.activePlayer.chip, column: move.column)
+        displayChip(imageFor(chipColor: board.activePlayer.chip)!, at: move.column, row: move.row)
+        updateGame()
+    }
+    
+    private func initAIMove() {
+        let move = board.activePlayer.randomMove(for: board)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.makeAIMove(move: move)
         }
     }
     
-    private func imageFor(chipColor: ChipColor) -> UIImage? {
-        switch chipColor {
-        case .red: return UIImage(named: "redChip")!
-        case .yellow: return UIImage(named: "yellowChip")!
-        default: return nil
+    func newGame() {
+        board.reset()
+        let chipImageViews = self.view.subviews.filter{$0.tag == 99}
+        for chipImageView in chipImageViews {
+            chipImageView.removeFromSuperview()
         }
+        toggleColumnInteration(active: true)
     }
-    
     
     private func updateGame() {
         
-        if board.activePlayer == board.player {
-            toggleColumnInteration(active: true)
-            
-        } else {
+        if board.isWinnerMove(chip: board.activePlayer.chip) {
             toggleColumnInteration(active: false)
+            displayWinnerAlert(winner: board.activePlayer)
+        } else  {
+            board.swapTurn()
             
-            let move = board.activePlayer.randomMove(for: board)
-            board.add(chip: board.activePlayer.chip, column: move.column)
-            
-            // AI player move shows after 2 seconds on the screen
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [unowned self] in
-                self.displayChip(self.imageFor(chipColor: self.board.activePlayer.chip)!, at: move.column, row: move.row)
-                self.board.swapTurn()
-                // Recursion to achieve the game loop
-                self.updateGame()
-            })
-            
-            
+            if board.activePlayer === board.player {
+                toggleColumnInteration(active: true)
+                
+            } else {
+                toggleColumnInteration(active: false)
+                initAIMove()
+                
+            }
         }
+        
     }
     
+    // Use interaction
     @IBAction func columnButtonDidTap(_ sender: UIButton) {
         
         if let row =  board.nextEmptyRow(at: sender.tag) {
             board.add(chip: board.activePlayer.chip, column: sender.tag)
             displayChip(imageFor(chipColor: board.activePlayer.chip)!, at: sender.tag, row: row)
-            
-            board.swapTurn()
             updateGame()
         }
-        
     }
+    
+}
+
+// MARK: Utils extension
+
+extension GameViewController {
     
     func displayChip(_ chipImage: UIImage, at column:Int, row: Int) {
         
@@ -78,6 +89,7 @@ class GameViewController: UIViewController {
         let chipFrame = CGRect(x: 0, y: 0, width: chipSize, height: chipSize)
         
         let chip = UIImageView()
+        chip.tag = 99
         chip.image = chipImage
         chip.frame = chipFrame
         chip.contentMode = .scaleAspectFit
@@ -100,5 +112,30 @@ class GameViewController: UIViewController {
         
     }
     
+    func toggleColumnInteration(active: Bool) {
+        for button in columnButtons {
+            button.isUserInteractionEnabled = active
+        }
+    }
+    
+     func imageFor(chipColor: ChipColor) -> UIImage? {
+        switch chipColor {
+        case .red: return UIImage(named: "redChip")!
+        case .yellow: return UIImage(named: "yellowChip")!
+        default: return nil
+        }
+    }
+    
+    func displayWinnerAlert(winner: Player) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let alert = UIAlertController(title: "Game Over", message: "The player \(winner.chip) has won!", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Play Again", style: .default) { _ in
+                self.newGame()
+            }
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+    }
     
 }
