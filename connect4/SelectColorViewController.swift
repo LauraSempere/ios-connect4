@@ -22,7 +22,6 @@ class SelectColorViewController: UIViewController {
             colorButton.addGestureRecognizer(tapGesture)
         }
 
-        // Do any additional setup after loading the view.
     }
     
     private func toggleColorSelector(selected: Int) {
@@ -48,6 +47,7 @@ class SelectColorViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let gameVC = segue.destination as! GameViewController
         gameVC.selectedColor = colorSelected
+        gameVC.navigationController?.title = "Connect4"
     }
  
 

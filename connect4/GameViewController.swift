@@ -14,12 +14,16 @@ class GameViewController: UIViewController {
     @IBOutlet var columnViews: [UIView]!
     @IBOutlet var columnButtons: [UIButton]!
     
+    @IBOutlet weak var currentTurnImageView: UIImageView!
+    @IBOutlet weak var currentTurnLabel: UILabel!
+    
     var selectedColor:ChipColor = .red
     var board:Board = Board(playerColor: .red)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         board = Board(playerColor: selectedColor)
+        displayCurrentTurn()
     }
     
     
@@ -39,9 +43,12 @@ class GameViewController: UIViewController {
                 move = bestMove
             } else {
                 move = board.activePlayer.randomMove(for: board)
-            
+                
             }
-            self.makeAIMove(move: move)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+              self.makeAIMove(move: move)
+            })
+
         }
         
     }
@@ -77,14 +84,12 @@ class GameViewController: UIViewController {
     
     // User interaction
     @IBAction func columnButtonDidTap(_ sender: UIButton) {
+        toggleColumnInteration(active: false)
         
         if let row =  board.nextEmptyRow(at: sender.tag) {
             board.add(chip: board.activePlayer.chip, column: sender.tag)
             displayChip(imageFor(chipColor: board.activePlayer.chip)!, at: sender.tag, row: row)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                self.updateGame()
-            })
+            updateGame()
             
         }
     }
@@ -94,6 +99,11 @@ class GameViewController: UIViewController {
 // MARK: Utils extension
 
 extension GameViewController {
+    
+    func displayCurrentTurn() {
+        currentTurnImageView.image = imageFor(chipColor: board.activePlayer.chip)
+        currentTurnLabel.text = board.activePlayer === board.player ? "Your Turn" : "Opponent's Turns"
+    }
     
     func displayChip(_ chipImage: UIImage, at column:Int, row: Int) {
         
@@ -120,9 +130,14 @@ extension GameViewController {
         view.addSubview(chip)
         
         // Chip Animation in
-        UIView.animate(withDuration: 0.75, delay: 0, options: .curveEaseIn, animations: {
+        
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
             chip.transform = CGAffineTransform.identity
-        })
+        }) { (completed) in
+            if completed {
+                self.displayCurrentTurn()
+            }
+        }
         
     }
     
@@ -132,7 +147,7 @@ extension GameViewController {
         }
     }
     
-     func imageFor(chipColor: ChipColor) -> UIImage? {
+    func imageFor(chipColor: ChipColor) -> UIImage? {
         switch chipColor {
         case .red: return UIImage(named: "redChip")!
         case .yellow: return UIImage(named: "yellowChip")!
@@ -145,10 +160,16 @@ extension GameViewController {
         let message = winner === board.player ? "You won the game" : "Keep it up and try again"
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: "Play Again", style: .default) { _ in
+            let playAgainAction = UIAlertAction(title: "Play Again", style: .default) { _ in
                 self.newGame()
             }
-            alert.addAction(action)
+            
+            let exitAgainAction = UIAlertAction(title: "Exit", style: .default) { _ in
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+            
+            alert.addAction(playAgainAction)
+            alert.addAction(exitAgainAction)
             self.present(alert, animated: true, completion: nil)
         }
         
