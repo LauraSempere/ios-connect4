@@ -30,10 +30,18 @@ class GameViewController: UIViewController {
     }
     
     private func initAIMove() {
-        let move = board.activePlayer.randomMove(for: board)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        var move:Move
+        
+        if let ai = board.activePlayer.ai {
+            if let bestMove = ai.findBestMove(for: board) {
+                move = bestMove
+            } else {
+                move = board.activePlayer.randomMove(for: board)
+            
+            }
             self.makeAIMove(move: move)
         }
+        
     }
     
     func newGame() {
@@ -47,7 +55,7 @@ class GameViewController: UIViewController {
     
     private func updateGame() {
         
-        if board.isWinnerMove(chip: board.activePlayer.chip) {
+        if board.isWinnerBoard(for: board.activePlayer.chip, connections: 4) {
             toggleColumnInteration(active: false)
             displayWinnerAlert(winner: board.activePlayer)
         } else  {
@@ -65,13 +73,17 @@ class GameViewController: UIViewController {
         
     }
     
-    // Use interaction
+    // User interaction
     @IBAction func columnButtonDidTap(_ sender: UIButton) {
         
         if let row =  board.nextEmptyRow(at: sender.tag) {
             board.add(chip: board.activePlayer.chip, column: sender.tag)
             displayChip(imageFor(chipColor: board.activePlayer.chip)!, at: sender.tag, row: row)
-            updateGame()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                self.updateGame()
+            })
+            
         }
     }
     

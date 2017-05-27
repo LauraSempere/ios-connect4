@@ -25,7 +25,7 @@ class Board: NSObject {
     
     var activePlayer:Player
     let player:Player = Player(chipColor: .red)
-    let ai:Player = Player(chipColor: .yellow)
+    let ai:Player = Player(chipColor: .yellow, ai: true)
     
     override init() {
         activePlayer = player
@@ -63,72 +63,99 @@ class Board: NSObject {
     }
     
     
-    private func horizontalConnection(for chip:ChipColor, row: Int, col: Int) ->  Bool {
-        if col + 3 >= Board.width { return false }
+    private func horizontalConnection(for chip:ChipColor, row: Int, col: Int, connections: Int) ->  Bool {
+        if col + connections > Board.width { return false }
         
-        if spots[row][col] != chip { return false }
-        if spots[row][col + 1] != chip { return false }
-        if spots[row][col + 2] != chip { return false }
-        if spots[row][col + 3] != chip { return false }
-        
-        return true
-    }
-    
-    private func verticalConnection(for chip:ChipColor, row: Int, col: Int) -> Bool {
-        if row + 3 >= Board.height { return false }
-        
-        if spots[row][col] != chip { return false }
-        if spots[row + 1][col] != chip { return false }
-        if spots[row + 2][col] != chip { return false }
-        if spots[row + 3][col] != chip { return false }
+        for i in 0 ..< connections {
+            if spots[row][col + i] != chip {
+                return false
+            }
+        }
         
         return true
     }
     
-    private func diagonalPositiveConnection(for chip:ChipColor, row: Int, col: Int) -> Bool {
-        if row + 3 >= Board.height { return false }
-        if col + 3 >= Board.width { return false }
+    private func verticalConnection(for chip:ChipColor, row: Int, col: Int, connections: Int) -> Bool {
+        if row + connections > Board.height { return false }
         
-        if spots[row][col] != chip { return false }
-        if spots[row + 1][col + 1] != chip { return false }
-        if spots[row + 2][col + 2] != chip { return false }
-        if spots[row + 3][col + 3] != chip { return false }
-        
-        return true
-    }
-    
-    private func diagonalNegativeConnection(for chip:ChipColor, row: Int, col: Int) -> Bool {
-        if row - 3 < 0 { return false }
-        if col + 3 >= Board.width { return false }
-        
-        if spots[row][col] != chip { return false }
-        if spots[row - 1][col + 1] != chip { return false }
-        if spots[row - 2][col + 2] != chip { return false }
-        if spots[row - 3][col + 3] != chip { return false }
-        
+        for i in 0 ..< connections {
+            if spots[row + i][col] != chip {
+                return false
+            }
+        }
         
         return true
     }
     
-    func isWinnerMove(chip:ChipColor) -> Bool {
+    private func diagonalPositiveConnection(for chip:ChipColor, row: Int, col: Int, connections: Int) -> Bool {
+        if row + connections > Board.height { return false }
+        if col + connections > Board.width { return false }
+        
+        for i in 0 ..< connections {
+            if spots[row + i][col + i] != chip {
+                return false
+            }
+        }
+        
+//        if spots[row][col] != chip { return false }
+//        if spots[row + 1][col + 1] != chip { return false }
+//        if spots[row + 2][col + 2] != chip { return false }
+//        if spots[row + 3][col + 3] != chip { return false }
+        
+        return true
+    }
+    
+    private func diagonalNegativeConnection(for chip:ChipColor, row: Int, col: Int, connections: Int) -> Bool {
+        if row - (connections - 1) < 0 { return false }
+        if col + connections > Board.width { return false }
+        
+        for i in 0 ..< connections {
+            if spots[row - i][col + i] != chip {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    func isWinnerMove(for chip: ChipColor, row: Int, column: Int, connections: Int) -> Bool {
+        if horizontalConnection(for: chip, row: row, col: column, connections: connections) {
+            return true
+        }
+        if verticalConnection(for: chip, row: row, col: column, connections: connections) {
+            return true
+        }
+        if diagonalPositiveConnection(for: chip, row: row, col: column, connections: connections) {
+            return true
+        }
+        if diagonalNegativeConnection(for: chip, row: row, col: column, connections: connections) {
+            return true
+        }
+        return false
+    }
+    
+    func isWinnerBoard(for chip:ChipColor, connections: Int) -> Bool {
         
         for row in 0 ..< Board.height {
             for column in 0 ..< Board.width {
-                if horizontalConnection(for: chip, row: row, col: column) {
-                    return true
-                }
-                if verticalConnection(for: chip, row: row, col: column) {
-                    return true
-                }
-                if diagonalPositiveConnection(for: chip, row: row, col: column) {
-                    return true
-                }
-                if diagonalNegativeConnection(for: chip, row: row, col: column) {
+                if isWinnerMove(for: chip, row: row, column: column, connections: connections) {
                     return true
                 }
             }
         }
         
+        return false
+    }
+    
+    func areMovesLeft() -> Bool{
+        
+        for row in 0 ..< Board.height {
+            for col in 0 ..< Board.width {
+                if spots[row][col] == .none {
+                    return true
+                }
+            }
+        }
         return false
     }
     

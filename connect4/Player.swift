@@ -12,8 +12,15 @@ class Player: NSObject {
 
     var chip:ChipColor
     
+    var ai:AI?
+    
     init(chipColor:ChipColor) {
        self.chip = chipColor
+    }
+    
+    init(chipColor: ChipColor, ai: Bool) {
+        self.chip = chipColor
+        self.ai = AI()
     }
     
     func randomMove(for board: Board) -> Move {
