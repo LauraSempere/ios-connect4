@@ -14,10 +14,12 @@ class GameViewController: UIViewController {
     @IBOutlet var columnViews: [UIView]!
     @IBOutlet var columnButtons: [UIButton]!
     
-    var board = Board()
+    var selectedColor:ChipColor = .red
+    var board:Board = Board(playerColor: .red)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        board = Board(playerColor: selectedColor)
     }
     
     

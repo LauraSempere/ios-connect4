@@ -99,7 +99,7 @@ class AI: NSObject {
         var bestMove:Move
         
         // We copy the board to do all the simulations on a separate board
-        let boardCopy = Board()
+        let boardCopy = Board(playerColor: board.player.chip)
         boardCopy.spots = board.spots
         
         for col in 0 ..< Board.width {

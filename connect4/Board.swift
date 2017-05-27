@@ -31,14 +31,16 @@ class Board: NSObject {
     var spots:[[ChipColor]] = Array(repeating: Array(repeating: .none, count: width), count: height)
     
     var activePlayer:Player
-    let player:Player = Player(chipColor: .red)
-    let ai:Player = Player(chipColor: .yellow, ai: true)
+    let player:Player
+    let ai:Player
     
     var winnerConnection:[Move] = []
     
-    override init() {
-        activePlayer = player
-        super.init()
+    init(playerColor: ChipColor) {
+        player = Player(chipColor: playerColor)
+        let aiColor:ChipColor = playerColor == .red ? .yellow : .red
+        ai = Player(chipColor: aiColor, ai: true)
+        self.activePlayer = player
     }
     
     func reset() {

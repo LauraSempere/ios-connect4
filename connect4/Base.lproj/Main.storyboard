@@ -67,11 +67,11 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Rbb-Yd-wBa">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="111.5"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redChip" translatesAutoresizingMaskIntoConstraints="NO" id="CYy-ba-C5o">
+                                                            <imageView tag="11" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redChip" translatesAutoresizingMaskIntoConstraints="NO" id="CYy-ba-C5o">
                                                                 <rect key="frame" x="0.0" y="0.0" width="146" height="111.5"/>
                                                                 <color key="backgroundColor" red="0.51885220200000004" green="0.93784593000000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </imageView>
-                                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yellowChip" translatesAutoresizingMaskIntoConstraints="NO" id="uou-XH-B6C">
+                                                            <imageView tag="22" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yellowChip" translatesAutoresizingMaskIntoConstraints="NO" id="uou-XH-B6C">
                                                                 <rect key="frame" x="154" y="0.0" width="146" height="111.5"/>
                                                             </imageView>
                                                         </subviews>
@@ -130,6 +130,10 @@
                             <constraint firstItem="D5C-Ch-vp4" firstAttribute="centerY" secondItem="HL3-9P-nCc" secondAttribute="centerY" id="qF4-8S-Q5R"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outletCollection property="colorButtons" destination="CYy-ba-C5o" collectionClass="NSMutableArray" id="Q8w-Ul-Rcs"/>
+                        <outletCollection property="colorButtons" destination="uou-XH-B6C" collectionClass="NSMutableArray" id="Gpd-M5-Pxy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q2t-Xt-HM7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
