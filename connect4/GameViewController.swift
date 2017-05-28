@@ -91,14 +91,6 @@ class GameViewController: UIViewController {
                 toggleColumnInteration(active: true)
             }
             
-            //            if board.activePlayer === board.player {
-            //                toggleColumnInteration(active: true)
-            //
-            //            } else {
-            //                toggleColumnInteration(active: false)
-            //                initAIMove()
-            //
-            //            }
         }
         
     }
@@ -122,8 +114,16 @@ class GameViewController: UIViewController {
 extension GameViewController {
     
     func displayCurrentTurn() {
+        
         currentTurnImageView.image = imageFor(chipColor: board.activePlayer.chip)
-        currentTurnLabel.text = board.activePlayer === board.player ? "Your Turn" : "Opponent's Turns"
+        
+        if gameMode == .onePlayer {
+            currentTurnLabel.text = board.activePlayer === board.player ? "Your Turn" : "Computer's Turn"
+        } else {
+            
+            currentTurnLabel.text = board.activePlayer === board.player ? "Player 1 Turn" : "Player 2 Turn"
+        }
+        
     }
     
     func displayChip(_ chipImage: UIImage, at column:Int, row: Int) {
@@ -218,9 +218,17 @@ extension GameViewController {
     
     func displayWinnerAlert(winner: Player) {
         
-        let title = winner === board.player ? "Congratulations!" : "You lose!"
-        let message = winner === board.player ? "You won the game" : "Keep it up and try again"
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        var title = ""
+        var message = ""
+        
+        if gameMode == .onePlayer {
+            title = winner === board.player ? "Congratulations!" : "You lose!"
+            message = winner === board.player ? "You won the game" : "Keep it up and try again"
+        } else {
+            title = "Game Over"
+            message = "Player \(String(describing: winner.chip).capitalized) wins!"
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let playAgainAction = UIAlertAction(title: "Play Again", style: .default) { _ in
                 self.newGame()
