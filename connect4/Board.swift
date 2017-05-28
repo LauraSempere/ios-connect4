@@ -32,14 +32,19 @@ class Board: NSObject {
     
     var activePlayer:Player
     let player:Player
-    let ai:Player
+    let opponent:Player
     
     var winnerConnection:[Move] = []
     
-    init(playerColor: ChipColor) {
+    init(playerColor: ChipColor, gameMode:GameMode) {
         player = Player(chipColor: playerColor)
-        let aiColor:ChipColor = playerColor == .red ? .yellow : .red
-        ai = Player(chipColor: aiColor, ai: true)
+        let opponentColor:ChipColor = playerColor == .red ? .yellow : .red
+        if gameMode == .onePlayer {
+            opponent = Player(chipColor: opponentColor, ai: true)
+        } else {
+            opponent = Player(chipColor: opponentColor)
+        }
+        
         self.activePlayer = player
     }
     
@@ -52,7 +57,7 @@ class Board: NSObject {
     func swapTurn() {
         
         if activePlayer == player {
-            activePlayer = ai
+            activePlayer = opponent
         } else {
             activePlayer = player
         }

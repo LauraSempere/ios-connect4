@@ -9,6 +9,11 @@
 import UIKit
 import AVFoundation
 
+enum GameMode {
+    case onePlayer
+    case twoPlayers
+}
+
 class GameViewController: UIViewController {
     
     @IBOutlet weak var gameBoard: UIStackView!
@@ -21,11 +26,13 @@ class GameViewController: UIViewController {
     var audioPlayer: AVAudioPlayer?
     
     var selectedColor:ChipColor = .red
-    var board:Board = Board(playerColor: .red)
+    var gameMode:GameMode = .onePlayer
+    var board:Board!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        board = Board(playerColor: selectedColor)
+        board = Board(playerColor: selectedColor, gameMode: gameMode)
         displayCurrentTurn()
     }
     
@@ -49,9 +56,9 @@ class GameViewController: UIViewController {
                 
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-              self.makeAIMove(move: move)
+                self.makeAIMove(move: move)
             })
-
+            
         }
         
     }
@@ -77,14 +84,21 @@ class GameViewController: UIViewController {
         } else  {
             board.swapTurn()
             
-            if board.activePlayer === board.player {
-                toggleColumnInteration(active: true)
-                
-            } else {
+            if board.activePlayer === board.opponent && (board.opponent.ai != nil) {
                 toggleColumnInteration(active: false)
                 initAIMove()
-                
+            } else {
+                toggleColumnInteration(active: true)
             }
+            
+            //            if board.activePlayer === board.player {
+            //                toggleColumnInteration(active: true)
+            //
+            //            } else {
+            //                toggleColumnInteration(active: false)
+            //                initAIMove()
+            //
+            //            }
         }
         
     }
@@ -184,7 +198,7 @@ extension GameViewController {
         shapeLayer.add(animation, forKey: "MyAnimation")
         
         view.addSubview(pathView)
-    
+        
         
     }
     

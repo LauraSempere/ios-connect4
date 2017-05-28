@@ -20,7 +20,7 @@ class AI: NSObject {
             }
             
             
-        } else if board.activePlayer === board.ai {
+        } else if board.activePlayer === board.opponent {
             if board.isWinnerBoard(for: board.activePlayer.chip, connections: 4) {
                 return -10
             }
@@ -96,8 +96,8 @@ class AI: NSObject {
         var bestScore = 0
         var bestMove:Move
         
-        // We copy the board to do all the simulations on a separate board
-        let boardCopy = Board(playerColor: board.player.chip)
+        // We create a new instance of Board and copy the spots from the original to do all the simulations
+        let boardCopy = Board(playerColor: board.player.chip, gameMode: .onePlayer)
         boardCopy.spots = board.spots
         
         for col in 0 ..< Board.width {
