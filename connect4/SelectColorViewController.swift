@@ -47,7 +47,7 @@ class SelectColorViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let gameVC = segue.destination as! GameViewController
         gameVC.selectedColor = colorSelected
-        gameVC.navigationController?.title = "Connect4"
+
     }
  
 

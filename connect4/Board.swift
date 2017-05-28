@@ -46,6 +46,7 @@ class Board: NSObject {
     func reset() {
         spots = Array(repeating: Array(repeating: .none, count: Board.width), count: Board.height)
         activePlayer = player
+        winnerConnection = []
     }
     
     func swapTurn() {

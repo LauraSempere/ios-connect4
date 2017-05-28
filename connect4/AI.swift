@@ -27,13 +27,12 @@ class AI: NSObject {
             
         }
         
-        
         return 0
     }
     
     func minimaxStrategy(board: Board, depth: Int, isMax: Bool) -> Int {
         
-        var scr = score(for: board)
+        let scr = score(for: board)
         
         if depth == 0 {
             return 0
@@ -94,7 +93,6 @@ class AI: NSObject {
     }
     
     func findBestMove(for board: Board) -> Move? {
-        // Initial bestScore for AI player is the worst score possible for him/her: a positive value
         var bestScore = 0
         var bestMove:Move
         

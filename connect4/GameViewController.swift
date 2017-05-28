@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class GameViewController: UIViewController {
     
@@ -16,6 +17,8 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var currentTurnImageView: UIImageView!
     @IBOutlet weak var currentTurnLabel: UILabel!
+    
+    var audioPlayer: AVAudioPlayer?
     
     var selectedColor:ChipColor = .red
     var board:Board = Board(playerColor: .red)
@@ -45,7 +48,7 @@ class GameViewController: UIViewController {
                 move = board.activePlayer.randomMove(for: board)
                 
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
               self.makeAIMove(move: move)
             })
 
@@ -55,10 +58,14 @@ class GameViewController: UIViewController {
     
     func newGame() {
         board.reset()
+        // Clear all the chips from the view
         let chipImageViews = self.view.subviews.filter{$0.tag == 99}
         for chipImageView in chipImageViews {
             chipImageView.removeFromSuperview()
         }
+        displayCurrentTurn()
+        // Remove the winning line indicator from the view
+        view.viewWithTag(100)?.removeFromSuperview()
         toggleColumnInteration(active: true)
     }
     
@@ -129,15 +136,55 @@ extension GameViewController {
         
         view.addSubview(chip)
         
-        // Chip Animation in
-        
+        // Chip Animation in with completion handler
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
             chip.transform = CGAffineTransform.identity
         }) { (completed) in
             if completed {
+                self.playSound()
+                if self.board.winnerConnection.count == 4 {
+                    self.showWinningPath()
+                }
                 self.displayCurrentTurn()
             }
         }
+        
+    }
+    
+    func getCGPoint(for move: Move) -> CGPoint {
+        let chipSize = max(gameBoard.frame.width / CGFloat(Board.width), gameBoard.frame.height / CGFloat(Board.height))
+        let columnView = columnViews[move.column]
+        let x = columnView.frame.midX + gameBoard.frame.minX
+        var y = columnView.frame.maxY - chipSize / 2 + gameBoard.frame.minY
+        y -= chipSize * CGFloat(move.row)
+        
+        return CGPoint(x: x, y: y)
+    }
+    
+    func showWinningPath() {
+        let initialPoint = getCGPoint(for: board.winnerConnection.first!)
+        let finalPoint = getCGPoint(for: board.winnerConnection.last!)
+        
+        let path = UIBezierPath()
+        path.move(to: initialPoint)
+        path.addLine(to: finalPoint)
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.fillColor = UIColor.cyan.cgColor
+        shapeLayer.strokeColor = UIColor.cyan.cgColor
+        shapeLayer.lineWidth = 5
+        shapeLayer.path = path.cgPath
+        let pathView = UIView(frame: view.frame)
+        pathView.tag = 100
+        
+        pathView.layer.addSublayer(shapeLayer)
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.fromValue = 0
+        animation.duration = 0.5
+        shapeLayer.add(animation, forKey: "MyAnimation")
+        
+        view.addSubview(pathView)
+    
         
     }
     
@@ -156,9 +203,10 @@ extension GameViewController {
     }
     
     func displayWinnerAlert(winner: Player) {
+        
         let title = winner === board.player ? "Congratulations!" : "You lose!"
         let message = winner === board.player ? "You won the game" : "Keep it up and try again"
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let playAgainAction = UIAlertAction(title: "Play Again", style: .default) { _ in
                 self.newGame()
@@ -173,6 +221,24 @@ extension GameViewController {
             self.present(alert, animated: true, completion: nil)
         }
         
+    }
+    
+    func playSound() {
+        guard let sound = NSDataAsset(name: "whoop") else {
+            print("asset not found")
+            return
+        }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            audioPlayer = try AVAudioPlayer(data: sound.data, fileTypeHint: AVFileTypeMPEGLayer3)
+            
+            audioPlayer!.play()
+        } catch let error as NSError {
+            print("error: \(error.localizedDescription)")
+        }
     }
     
 }
