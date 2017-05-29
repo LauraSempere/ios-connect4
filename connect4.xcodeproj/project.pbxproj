@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD525D2C1EDBE6B40058BFCF /* connect4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD525D2B1EDBE6B40058BFCF /* connect4Tests.swift */; };
 		DD79C3D71ED7018C00922B18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD79C3D61ED7018C00922B18 /* AppDelegate.swift */; };
 		DD79C3DC1ED7018C00922B18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD79C3DA1ED7018C00922B18 /* Main.storyboard */; };
 		DD79C3DE1ED7018C00922B18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD79C3DD1ED7018C00922B18 /* Assets.xcassets */; };
@@ -19,7 +20,20 @@
 		DDD16A7A1ED8309800B29912 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD16A791ED8309800B29912 /* Move.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		DD525D2E1EDBE6B40058BFCF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD79C3CB1ED7018C00922B18 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD79C3D21ED7018C00922B18;
+			remoteInfo = connect4;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		DD525D291EDBE6B40058BFCF /* connect4Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = connect4Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD525D2B1EDBE6B40058BFCF /* connect4Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = connect4Tests.swift; sourceTree = "<group>"; };
+		DD525D2D1EDBE6B40058BFCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD79C3D31ED7018C00922B18 /* connect4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = connect4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD79C3D61ED7018C00922B18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD79C3DB1ED7018C00922B18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -35,6 +49,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DD525D261EDBE6B40058BFCF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DD79C3D01ED7018C00922B18 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -45,10 +66,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD525D2A1EDBE6B40058BFCF /* connect4Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DD525D2B1EDBE6B40058BFCF /* connect4Tests.swift */,
+				DD525D2D1EDBE6B40058BFCF /* Info.plist */,
+			);
+			path = connect4Tests;
+			sourceTree = "<group>";
+		};
 		DD79C3CA1ED7018C00922B18 = {
 			isa = PBXGroup;
 			children = (
 				DD79C3D51ED7018C00922B18 /* connect4 */,
+				DD525D2A1EDBE6B40058BFCF /* connect4Tests */,
 				DD79C3D41ED7018C00922B18 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				DD79C3D31ED7018C00922B18 /* connect4.app */,
+				DD525D291EDBE6B40058BFCF /* connect4Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,6 +122,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DD525D281EDBE6B40058BFCF /* connect4Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD525D321EDBE6B40058BFCF /* Build configuration list for PBXNativeTarget "connect4Tests" */;
+			buildPhases = (
+				DD525D251EDBE6B40058BFCF /* Sources */,
+				DD525D261EDBE6B40058BFCF /* Frameworks */,
+				DD525D271EDBE6B40058BFCF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DD525D2F1EDBE6B40058BFCF /* PBXTargetDependency */,
+			);
+			name = connect4Tests;
+			productName = connect4Tests;
+			productReference = DD525D291EDBE6B40058BFCF /* connect4Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DD79C3D21ED7018C00922B18 /* connect4 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD79C3E51ED7018C00922B18 /* Build configuration list for PBXNativeTarget "connect4" */;
@@ -117,6 +167,12 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = laura.sempere.com;
 				TargetAttributes = {
+					DD525D281EDBE6B40058BFCF = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = UFM2263SJB;
+						ProvisioningStyle = Automatic;
+						TestTargetID = DD79C3D21ED7018C00922B18;
+					};
 					DD79C3D21ED7018C00922B18 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = UFM2263SJB;
@@ -138,11 +194,19 @@
 			projectRoot = "";
 			targets = (
 				DD79C3D21ED7018C00922B18 /* connect4 */,
+				DD525D281EDBE6B40058BFCF /* connect4Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DD525D271EDBE6B40058BFCF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DD79C3D11ED7018C00922B18 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -156,6 +220,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DD525D251EDBE6B40058BFCF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD525D2C1EDBE6B40058BFCF /* connect4Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DD79C3CF1ED7018C00922B18 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -171,6 +243,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DD525D2F1EDBE6B40058BFCF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD79C3D21ED7018C00922B18 /* connect4 */;
+			targetProxy = DD525D2E1EDBE6B40058BFCF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DD79C3DA1ED7018C00922B18 /* Main.storyboard */ = {
@@ -192,6 +272,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DD525D301EDBE6B40058BFCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = UFM2263SJB;
+				INFOPLIST_FILE = connect4Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = laura.sempere.connect4.connect4Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/connect4.app/connect4";
+			};
+			name = Debug;
+		};
+		DD525D311EDBE6B40058BFCF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = UFM2263SJB;
+				INFOPLIST_FILE = connect4Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = laura.sempere.connect4.connect4Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/connect4.app/connect4";
+			};
+			name = Release;
+		};
 		DD79C3E31ED7018C00922B18 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -318,6 +426,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DD525D321EDBE6B40058BFCF /* Build configuration list for PBXNativeTarget "connect4Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD525D301EDBE6B40058BFCF /* Debug */,
+				DD525D311EDBE6B40058BFCF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		DD79C3CE1ED7018C00922B18 /* Build configuration list for PBXProject "connect4" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
